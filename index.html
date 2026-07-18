@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr Semmari Ahlem — Chirurgien-Dentiste | Bordj El Bahri</title>
+<meta name="description" content="Dr Semmari Ahlem, chirurgien-dentiste à Bordj El Bahri. Blanchiment, prothèses, bridges zircon, soins dentaires. Ouvert tous les jours 9h-17h.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Petit+Formal+Script&family=Outfit:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E2A3D;
+    --navy-2:#123245;
+    --teal:#146B76;
+    --teal-light:#1E8F9C;
+    --bg:#F6FAFA;
+    --card:#FFFFFF;
+    --pink:#E8A9B8;
+    --pink-deep:#D98A9C;
+    --gold:#D9B26F;
+    --ink:#16323F;
+    --ink-soft:#4A6572;
+    --line:#DCE7E9;
+    --radius:18px;
+    --shadow: 0 20px 50px -25px rgba(14,42,61,0.35);
+    --font-display:'Playfair Display', 'Tajawal', serif;
+    --font-script:'Petit Formal Script', cursive;
+    --font-body:'Outfit', 'Tajawal', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-body);
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  html[dir="rtl"] body{font-family:'Tajawal', sans-serif;}
+
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- Signature headline device: CAPS + script accent ---------- */
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.78rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--teal); font-weight:600; margin-bottom:14px;
+  }
+  .eyebrow::before{content:''; width:26px; height:1px; background:var(--teal-light);}
+  html[dir="rtl"] .eyebrow::before{display:none;}
+
+  .headline{
+    font-family:var(--font-display);
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--navy);
+    letter-spacing:.02em;
+    line-height:1.05;
+  }
+  .headline .accent{
+    font-family:var(--font-script);
+    font-weight:400;
+    text-transform:none;
+    color:var(--teal);
+    letter-spacing:0;
+    display:inline-block;
+    padding:0 .12em;
+  }
+  html[dir="rtl"] .headline .accent{
+    font-family:'Tajawal', sans-serif;
+    font-style:italic;
+    font-weight:700;
+    color:var(--teal);
+  }
+  html[dir="rtl"] .headline{text-transform:none;}
+
+  section{padding:96px 0;}
+  @media(max-width:768px){ section{padding:64px 0;} }
+
+  /* ---------- Nav ---------- */
+  header.site{
+    position:fixed; top:0; left:0; right:0; z-index:1000;
+    background:rgba(246,250,250,0.86);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    transition:background .3s;
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px; max-width:1180px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand img{width:44px; height:44px; border-radius:50%; object-fit:cover; box-shadow:0 4px 14px rgba(14,42,61,.2);}
+  .brand-text{display:flex; flex-direction:column; line-height:1.1;}
+  .brand-text b{font-family:var(--font-display); font-size:1.02rem; color:var(--navy); font-weight:700;}
+  .brand-text span{font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--teal);}
+
+  .nav-links{display:flex; align-items:center; gap:32px;}
+  .nav-links a{
+    font-size:.92rem; font-weight:500; color:var(--ink); position:relative; padding:4px 0;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--teal);
+    transition:width .25s;
+  }
+  .nav-links a:hover::after{width:100%;}
+
+  .lang-switch{display:flex; gap:4px; background:var(--card); border:1px solid var(--line); border-radius:100px; padding:3px;}
+  .lang-switch button{
+    border:none; background:transparent; padding:6px 12px; border-radius:100px;
+    font-size:.76rem; font-weight:700; cursor:pointer; color:var(--ink-soft); font-family:var(--font-body);
+  }
+  .lang-switch button.active{background:var(--navy); color:#fff;}
+
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--teal); color:#fff; padding:10px 20px; border-radius:100px;
+    font-size:.86rem; font-weight:600; box-shadow:0 8px 20px -8px rgba(20,107,118,.6);
+    transition:transform .2s, box-shadow .2s;
+  }
+  .nav-cta:hover{transform:translateY(-2px); box-shadow:0 12px 26px -8px rgba(20,107,118,.7);}
+
+  .burger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none;}
+  .burger span{width:24px; height:2px; background:var(--navy);}
+
+  @media(max-width:900px){
+    .nav-links{
+      position:fixed; top:74px; left:0; right:0; background:var(--card);
+      flex-direction:column; align-items:flex-start; gap:0; padding:8px 24px 20px;
+      border-bottom:1px solid var(--line); transform:translateY(-130%); transition:transform .3s;
+    }
+    .nav-links.open{transform:translateY(0);}
+    .nav-links a{width:100%; padding:12px 0; border-bottom:1px solid var(--line);}
+    .burger{display:flex;}
+    .nav-cta{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center;
+    background:linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 55%, var(--teal) 130%);
+    color:#fff;
+    padding-top:110px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle at 18% 25%, rgba(232,169,184,.14), transparent 40%),
+                       radial-gradient(circle at 85% 75%, rgba(217,178,111,.12), transparent 45%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative; z-index:2;
+    display:grid; grid-template-columns:1.1fr .9fr; gap:60px; align-items:center;
+  }
+  @media(max-width:900px){ .hero-grid{grid-template-columns:1fr; gap:40px;} }
+
+  .hero-eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.78rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--pink); font-weight:600; margin-bottom:22px;
+  }
+  .sparkle{width:16px; height:16px; flex-shrink:0;}
+
+  .hero h1{
+    font-family:var(--font-display);
+    font-size:clamp(2.6rem, 5.4vw, 4.4rem);
+    font-weight:700; text-transform:uppercase; letter-spacing:.01em;
+    line-height:1.03; margin-bottom:8px;
+  }
+  .hero h1 .script{
+    display:block;
+    font-family:var(--font-script);
+    font-weight:400; text-transform:none;
+    color:var(--pink);
+    font-size:.62em;
+    margin-top:2px;
+  }
+  html[dir="rtl"] .hero h1 .script{font-family:'Tajawal',sans-serif; font-style:italic; font-weight:700; color:var(--pink);}
+
+  .hero p.lead{
+    max-width:480px; font-size:1.08rem; color:#D8E6E9; margin:26px 0 36px; font-weight:300;
+  }
+  .hero-actions{display:flex; flex-wrap:wrap; gap:16px;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 28px; border-radius:100px; font-weight:600; font-size:.94rem;
+    transition:transform .2s, box-shadow .2s; cursor:pointer; border:none;
+  }
+  .btn-primary{
+    background:var(--pink); color:var(--navy);
+    box-shadow:0 14px 30px -12px rgba(232,169,184,.7);
+  }
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 18px 36px -12px rgba(232,169,184,.85);}
+  .btn-ghost{
+    background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.35);
+    backdrop-filter:blur(6px);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.16); transform:translateY(-3px);}
+
+  .hero-badge{
+    position:relative;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:24px;
+    padding:34px;
+    backdrop-filter:blur(10px);
+    text-align:center;
+  }
+  .hero-badge img{
+    width:150px; height:150px; margin:0 auto 18px; border-radius:50%;
+    object-fit:cover; border:3px solid rgba(255,255,255,.5);
+  }
+  .hero-badge .name{font-family:var(--font-display); font-size:1.3rem; font-weight:700; margin-bottom:4px;}
+  .hero-badge .role{font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pink);}
+  .hero-badge .tagline{
+    font-family:var(--font-script); font-size:1.5rem; color:#DCEFF1; margin-top:14px;
+  }
+  html[dir="rtl"] .hero-badge .tagline{font-family:'Tajawal',sans-serif; font-style:italic; font-weight:500;}
+
+  .hero-stats{
+    display:flex; gap:0; margin-top:30px; border-top:1px solid rgba(255,255,255,.2); padding-top:22px;
+    justify-content:space-around;
+  }
+  .hero-stats div{text-align:center;}
+  .hero-stats b{display:block; font-family:var(--font-display); font-size:1.15rem;}
+  .hero-stats span{font-size:.72rem; color:#B9CFD3; letter-spacing:.06em;}
+
+  .scroll-cue{
+    position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px; color:#B9CFD3; font-size:.72rem;
+    letter-spacing:.15em; text-transform:uppercase; z-index:2;
+  }
+  .scroll-cue .line{width:1px; height:30px; background:linear-gradient(#B9CFD3, transparent); animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:.3} 50%{opacity:1}}
+
+  /* ---------- About ---------- */
+  .about{background:var(--bg);}
+  .about-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:64px; align-items:center;}
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr;}}
+  .about-photo{position:relative;}
+  .about-photo .frame{
+    border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+    border:6px solid var(--card);
+  }
+  .about-photo .float-card{
+    position:absolute; bottom:-24px; right:-24px;
+    background:var(--card); border-radius:14px; padding:16px 20px;
+    box-shadow:0 20px 40px -20px rgba(14,42,61,.4);
+    display:flex; align-items:center; gap:12px;
+  }
+  html[dir="rtl"] .about-photo .float-card{right:auto; left:-24px;}
+  .about-photo .float-card svg{width:30px; height:30px; color:var(--teal); flex-shrink:0;}
+  .about-photo .float-card b{display:block; font-family:var(--font-display); color:var(--navy); font-size:1rem;}
+  .about-photo .float-card span{font-size:.76rem; color:var(--ink-soft);}
+
+  .about h2{font-size:clamp(2rem,3.6vw,2.7rem); margin-bottom:22px;}
+  .about p{color:var(--ink-soft); margin-bottom:18px; max-width:560px;}
+  .about-quote{
+    font-family:var(--font-script); font-size:1.6rem; color:var(--teal); margin:26px 0;
+    padding-inline-start:20px; border-inline-start:3px solid var(--pink);
+  }
+  html[dir="rtl"] .about-quote{font-family:'Tajawal',sans-serif; font-style:italic; font-weight:600; font-size:1.3rem;}
+
+  /* ---------- Services ---------- */
+  .services{background:linear-gradient(180deg, var(--card), var(--bg));}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 60px;}
+  .section-head p{color:var(--ink-soft); margin-top:16px;}
+
+  .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+  @media(max-width:900px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.services-grid{grid-template-columns:1fr;}}
+
+  .service-card{
+    background:var(--card); border-radius:var(--radius); padding:34px 28px;
+    border:1px solid var(--line); transition:transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .service-card:hover{transform:translateY(-6px); box-shadow:var(--shadow); border-color:transparent;}
+  .service-card .icon{
+    width:52px; height:52px; border-radius:14px; background:rgba(20,107,118,.1);
+    display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+  }
+  .service-card .icon svg{width:26px; height:26px; color:var(--teal);}
+  .service-card h3{font-family:var(--font-display); font-size:1.16rem; color:var(--navy); margin-bottom:10px; font-weight:700;}
+  .service-card p{font-size:.92rem; color:var(--ink-soft);}
+
+  /* ---------- Gallery ---------- */
+  .gallery{background:var(--navy); color:#fff;}
+  .gallery .eyebrow{color:var(--pink);}
+  .gallery .eyebrow::before{background:var(--pink);}
+  .gallery .section-head p{color:#B9CFD3;}
+  .gallery .headline{color:#fff;}
+  .gallery .headline .accent{color:var(--pink);}
+
+  .filters{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:44px;}
+  .filters button{
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.2); color:#DCE9EB;
+    padding:9px 20px; border-radius:100px; font-size:.84rem; font-weight:500; cursor:pointer;
+    transition:all .25s; font-family:var(--font-body);
+  }
+  html[dir="rtl"] .filters button{font-family:'Tajawal',sans-serif;}
+  .filters button.active, .filters button:hover{background:var(--pink); color:var(--navy); border-color:var(--pink);}
+
+  .case-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+  @media(max-width:900px){.case-grid{grid-template-columns:1fr;}}
+
+  .case-card{
+    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12);
+    border-radius:var(--radius); overflow:hidden; transition:transform .3s;
+  }
+  .case-card:hover{transform:translateY(-6px);}
+  .case-card .compare{position:relative; aspect-ratio:1/1; overflow:hidden;}
+  .case-card .compare img{width:100%; height:100%; object-fit:cover;}
+  .case-card .compare .tag{
+    position:absolute; top:14px; inset-inline-start:14px;
+    background:rgba(14,42,61,.75); color:#fff; font-size:.7rem; letter-spacing:.1em;
+    text-transform:uppercase; padding:5px 12px; border-radius:100px; backdrop-filter:blur(4px);
+  }
+  .case-card .info{padding:22px 24px;}
+  .case-card .info b{font-family:var(--font-display); font-size:1.05rem; display:block; margin-bottom:6px;}
+  .case-card .info span{font-size:.84rem; color:#B9CFD3;}
+
+  /* ---------- Location ---------- */
+  .location{background:var(--bg);}
+  .loc-grid{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:stretch;}
+  @media(max-width:900px){.loc-grid{grid-template-columns:1fr;}}
+  .loc-card{
+    background:var(--card); border-radius:var(--radius); padding:40px; border:1px solid var(--line);
+    display:flex; flex-direction:column; gap:26px;
+  }
+  .loc-row{display:flex; gap:18px; align-items:flex-start;}
+  .loc-row .icon{
+    width:46px; height:46px; border-radius:12px; background:rgba(232,169,184,.18);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .loc-row .icon svg{width:22px; height:22px; color:var(--pink-deep);}
+  .loc-row b{display:block; font-family:var(--font-display); color:var(--navy); margin-bottom:4px;}
+  .loc-row span, .loc-row div.detail{font-size:.92rem; color:var(--ink-soft);}
+  .hours-table{width:100%; border-collapse:collapse; margin-top:4px;}
+  .hours-table td{padding:4px 0; font-size:.9rem; color:var(--ink-soft);}
+  .hours-table td:last-child{text-align:end; font-weight:600; color:var(--teal);}
+
+  .map-frame{border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow); min-height:340px;}
+  .map-frame iframe{width:100%; height:100%; min-height:340px; border:0;}
+
+  /* ---------- Contact / CTA ---------- */
+  .cta-section{
+    background:linear-gradient(135deg, var(--teal), var(--navy));
+    color:#fff; text-align:center; position:relative; overflow:hidden;
+  }
+  .cta-section::before{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 30%, rgba(232,169,184,.18), transparent 45%);
+  }
+  .cta-section .inner{position:relative; z-index:2; max-width:600px; margin:0 auto;}
+  .cta-section h2{color:#fff; margin-bottom:18px;}
+  .cta-section p{color:#D8E6E9; margin-bottom:36px; font-weight:300;}
+  .cta-buttons{display:flex; justify-content:center; gap:16px; flex-wrap:wrap;}
+  .social-row{display:flex; justify-content:center; gap:18px; margin-top:40px;}
+  .social-row a{
+    width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center;
+    transition:background .25s, transform .25s;
+  }
+  .social-row a:hover{background:var(--pink); transform:translateY(-3px);}
+  .social-row svg{width:20px; height:20px; color:#fff;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--navy-2); color:#9FB8BD; padding:36px 0; text-align:center; font-size:.82rem;}
+  footer .brand-text{align-items:center;}
+  footer a{color:#DCE9EB; font-weight:600;}
+  footer .credit{margin-top:10px; opacity:.75; font-size:.76rem;}
+  footer .credit a{color:var(--pink); font-weight:700; text-decoration:none; border-bottom:1px solid transparent; transition:border-color .2s;}
+  footer .credit a:hover{border-color:var(--pink);}
+
+  /* WhatsApp floating button */
+  .wa-float{
+    position:fixed; bottom:24px; inset-inline-end:24px; z-index:900;
+    width:58px; height:58px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 12px 28px -8px rgba(37,211,102,.6);
+    animation:floatPulse 2.6s infinite;
+  }
+  .wa-float svg{width:28px; height:28px; color:#fff;}
+  @keyframes floatPulse{0%,100%{transform:scale(1)} 50%{transform:scale(1.06)}}
+
+  [data-reveal]{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  [data-reveal].visible{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    [data-reveal]{opacity:1; transform:none; transition:none;}
+    .wa-float, .scroll-cue .line{animation:none;}
+  }
+
+  :focus-visible{outline:2px solid var(--pink); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site">
+  <nav class="nav">
+    <div class="brand">
+      <img src="assets/logo.jpg" alt="Logo Dr Semmari Ahlem">
+      <div class="brand-text">
+        <b>Dr Semmari Ahlem</b>
+        <span data-i18n="nav.role">Chirurgien-Dentiste</span>
+      </div>
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#apropos" data-i18n="nav.about">À propos</a></li>
+      <li><a href="#soins" data-i18n="nav.services">Soins</a></li>
+      <li><a href="#realisations" data-i18n="nav.gallery">Réalisations</a></li>
+      <li><a href="#localisation" data-i18n="nav.location">Localisation</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div class="lang-switch" id="langSwitch">
+        <button data-lang="fr" class="active">FR</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="ar">ع</button>
+      </div>
+      <a class="nav-cta" href="#" id="waNavBtn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.13 8.13 0 0 1-1.25-4.35c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.52-3.68 8.2-8.15 8.2Zm4.48-6.14c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.53.06-.24-.12-1.03-.38-1.96-1.22-.72-.65-1.21-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
+        <span data-i18n="nav.book">Rendez-vous</span>
+      </a>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="accueil">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-eyebrow">
+        <svg class="sparkle" viewBox="0 0 24 24" fill="var(--pink)"><path d="M12 2l1.8 5.8L19.6 9l-5.8 1.8L12 16.6l-1.8-5.8L4.4 9l5.8-1.2L12 2z"/><path d="M19 15l.9 2.9L22.8 19l-2.9.9L19 22.8l-.9-2.9L15.2 19l2.9-1.1L19 15z"/></svg>
+        <span data-i18n="hero.eyebrow">Cabinet Dentaire · Bordj El Bahri</span>
+      </div>
+      <h1>
+        <span data-i18n="hero.title1">DES SOURIRES</span>
+        <span class="script" data-i18n="hero.title2">qui inspirent confiance</span>
+      </h1>
+      <p class="lead" data-i18n="hero.lead">Soins dentaires précis, esthétiques et humains — dans un cabinet pensé pour vous mettre à l'aise, du premier sourire au dernier détail.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#" id="waHeroBtn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.13 8.13 0 0 1-1.25-4.35c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.52-3.68 8.2-8.15 8.2Z"/></svg>
+          <span data-i18n="hero.cta1">Prendre rendez-vous</span>
+        </a>
+        <a class="btn btn-ghost" href="#soins" data-i18n="hero.cta2">Voir les soins</a>
+      </div>
+    </div>
+
+    <div class="hero-badge" data-reveal>
+      <img src="assets/logo.jpg" alt="Dr Semmari Ahlem">
+      <div class="name">Dr Semmari Ahlem</div>
+      <div class="role" data-i18n="hero.role">Chirurgien-Dentiste</div>
+      <div class="tagline" data-i18n="hero.tagline">Your tooth fairy 🦷</div>
+      <div class="hero-stats">
+        <div><b data-i18n="hero.stat1n">7j/7</b><span data-i18n="hero.stat1l">Ouvert</span></div>
+        <div><b data-i18n="hero.stat2n">9h–17h</b><span data-i18n="hero.stat2l">Horaires</span></div>
+        <div><b data-i18n="hero.stat3n">100%</b><span data-i18n="hero.stat3l">Soin & précision</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue"><span data-i18n="hero.scroll">Découvrir</span><div class="line"></div></div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="apropos">
+  <div class="wrap about-grid">
+    <div class="about-photo" data-reveal>
+      <div class="frame"><img src="assets/logo.jpg" alt="Dr Semmari Ahlem"></div>
+      <div class="float-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.6-9.5-9C.6 8.1 2.4 4 6.5 4 9 4 11 5.6 12 7.2 13 5.6 15 4 17.5 4 21.6 4 23.4 8.1 21.5 12 19 16.4 12 21 12 21Z"/></svg>
+        <div>
+          <b data-i18n="about.floatn">Approche</b>
+          <span data-i18n="about.floatl">Douce & rassurante</span>
+        </div>
+      </div>
+    </div>
+
+    <div data-reveal>
+      <div class="eyebrow" data-i18n="about.eyebrow">À propos</div>
+      <h2 class="headline" data-i18n-html="about.title">VOTRE <span class="accent">Dentiste</span> de confiance</h2>
+      <p data-i18n="about.p1">Le Dr Semmari Ahlem exerce comme chirurgien-dentiste à Bordj El Bahri, avec une approche qui allie rigueur clinique et douceur — pour que chaque visite, même la plus redoutée, se passe sereinement.</p>
+      <p data-i18n="about.p2">Des soins conservateurs à l'esthétique dentaire, chaque traitement est pensé sur mesure, avec un souci constant du détail et du confort du patient.</p>
+      <div class="about-quote" data-i18n="about.quote">Your tooth fairy 🦷</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="services" id="soins">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div class="eyebrow" data-i18n="services.eyebrow">Nos soins</div>
+      <h2 class="headline" data-i18n-html="services.title">DES SOINS <span class="accent">complets</span></h2>
+      <p data-i18n="services.lead">Un cabinet équipé pour répondre à l'ensemble de vos besoins dentaires, de la prévention à l'esthétique.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card" data-reveal>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.6-9.5-9C.6 8.1 2.4 4 6.5 4 9 4 11 5.6 12 7.2 13 5.6 15 4 17.5 4 21.6 4 23.4 8.1 21.5 12 19 16.4 12 21 12 21Z"/></svg></div>
+        <h3 data-i18n="services.s1t">Blanchiment dentaire</h3>
+        <p data-i18n="services.s1p">Blanchiment externe professionnel pour un sourire éclatant, en toute sécurité pour l'émail.</p>
+      </div>
+      <div class="service-card" data-reveal>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M12 8v8"/></svg></div>
+        <h3 data-i18n="services.s2t">Bridges & prothèses zircon</h3>
+        <p data-i18n="services.s2p">Restaurations esthétiques et durables — bridges céramo-zircon pour retrouver un sourire naturel.</p>
+      </div>
+      <div class="service-card" data-reveal>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
+        <h3 data-i18n="services.s3t">Prothèses amovibles (PAPCM)</h3>
+        <p data-i18n="services.s3p">Solutions sur mesure pour remplacer les dents manquantes et restaurer confort et fonction.</p>
+      </div>
+      <div class="service-card" data-reveal>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M4 6h16M4 18h10"/></svg></div>
+        <h3 data-i18n="services.s4t">Soins conservateurs</h3>
+        <p data-i18n="services.s4p">Détartrage, traitement des caries et soins préventifs pour une santé bucco-dentaire durable.</p>
+      </div>
+      <div class="service-card" data-reveal>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2-6.3-4.6L5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></div>
+        <h3 data-i18n="services.s5t">Esthétique dentaire</h3>
+        <p data-i18n="services.s5p">Facettes et corrections esthétiques pour un sourire harmonieux et naturel.</p>
+      </div>
+      <div class="service-card" data-reveal>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v6M12 22v-6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M2 12h6M16 12h6M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2"/></svg></div>
+        <h3 data-i18n="services.s6t">Urgences dentaires</h3>
+        <p data-i18n="services.s6p">Prise en charge rapide des douleurs et urgences, avec créneaux disponibles chaque jour.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="gallery" id="realisations">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div class="eyebrow" data-i18n="gallery.eyebrow">Cas traités</div>
+      <h2 class="headline" data-i18n-html="gallery.title">NOS <span class="accent">Réalisations</span></h2>
+      <p data-i18n="gallery.lead">Un aperçu de résultats réels, avant / après — chaque sourire raconte une histoire différente.</p>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="active" data-filter="all" data-i18n="gallery.fall">Tout</button>
+      <button data-filter="bridge" data-i18n="gallery.fbridge">Bridges</button>
+      <button data-filter="blanchiment" data-i18n="gallery.fblanch">Blanchiment</button>
+      <button data-filter="prothese" data-i18n="gallery.fproth">Prothèses</button>
+    </div>
+
+    <div class="case-grid" id="caseGrid">
+      <div class="case-card" data-cat="bridge" data-reveal>
+        <div class="compare"><span class="tag" data-i18n="gallery.c1tag">Bridge Zircon</span><img src="assets/case-zircon-bridge.webp" alt="Cas bridge zircon"></div>
+        <div class="info"><b data-i18n="gallery.c1t">Bridge en Zircon</b><span data-i18n="gallery.c1p">Restauration complète d'une zone édentée, résultat naturel.</span></div>
+      </div>
+      <div class="case-card" data-cat="blanchiment" data-reveal>
+        <div class="compare"><span class="tag" data-i18n="gallery.c2tag">Blanchiment</span><img src="assets/case-blanchiment.webp" alt="Cas blanchiment dentaire"></div>
+        <div class="info"><b data-i18n="gallery.c2t">Blanchiment externe</b><span data-i18n="gallery.c2p">Éclaircissement visible dès la première séance.</span></div>
+      </div>
+      <div class="case-card" data-cat="prothese" data-reveal>
+        <div class="compare"><span class="tag" data-i18n="gallery.c3tag">PAPCM</span><img src="assets/case-papcm.webp" alt="Cas prothèse PAPCM"></div>
+        <div class="info"><b data-i18n="gallery.c3t">Prothèse supérieure</b><span data-i18n="gallery.c3p">Reconstruction complète, sourire et fonction restaurés.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOCATION ================= -->
+<section class="location" id="localisation">
+  <div class="wrap loc-grid">
+    <div class="loc-card" data-reveal>
+      <div class="eyebrow" data-i18n="loc.eyebrow">Nous trouver</div>
+      <h2 class="headline" style="font-size:1.8rem; margin-bottom:6px;" data-i18n-html="loc.title">LE <span class="accent">Cabinet</span></h2>
+
+      <div class="loc-row">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <div>
+          <b data-i18n="loc.addr">Adresse</b>
+          <div class="detail" data-i18n="loc.addrv">Bordj El Bahri, Alger, Algérie</div>
+        </div>
+      </div>
+
+      <div class="loc-row">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+        <div style="width:100%;">
+          <b data-i18n="loc.hours">Horaires</b>
+          <table class="hours-table">
+            <tr><td data-i18n="loc.days">Tous les jours</td><td>09:00 – 17:00</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="loc-row">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 14l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></div>
+        <div>
+          <b data-i18n="loc.phone">Téléphone / WhatsApp</b>
+          <div class="detail">+213 XX XX XX XX</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-frame" data-reveal>
+      <iframe src="https://www.google.com/maps?q=Bordj%20El%20Bahri%2C%20Alger%2C%20Algeria&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localisation du cabinet"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA / CONTACT ================= -->
+<section class="cta-section" id="contact">
+  <div class="wrap inner">
+    <div class="eyebrow" style="justify-content:center; color:var(--pink);" data-i18n="cta.eyebrow">Contact</div>
+    <h2 class="headline" data-i18n-html="cta.title">PRENEZ <span class="accent">Rendez-vous</span></h2>
+    <p data-i18n="cta.lead">Le moyen le plus rapide de nous joindre : un message WhatsApp. Réponse rapide, prise de rendez-vous simplifiée.</p>
+    <div class="cta-buttons">
+      <a class="btn btn-primary" href="#" id="waCtaBtn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Z"/></svg>
+        <span data-i18n="cta.wa">Écrire sur WhatsApp</span>
+      </a>
+      <a class="btn btn-ghost" href="https://instagram.com/dr.semmari_a" target="_blank" rel="noopener" data-i18n="cta.ig">Voir Instagram</a>
+    </div>
+
+    <div class="social-row">
+      <a href="https://instagram.com/dr.semmari_a" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a href="#" id="waSocialBtn" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 14l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="brand" style="justify-content:center; margin-bottom:8px;">
+      <img src="assets/logo.jpg" alt="Logo" style="width:34px; height:34px;">
+      <span style="font-family:var(--font-display); color:#fff; font-weight:700;">Dr Semmari Ahlem</span>
+    </div>
+    <div data-i18n="footer.line">Bordj El Bahri, Alger — Ouvert tous les jours de 9h à 17h</div>
+    <div class="credit"><span data-i18n="footer.credit1">Créé par</span> <a href="https://hali7m.github.io/" target="_blank" rel="noopener">Touil Abdelhalim</a></div>
+  </div>
+</footer>
+
+<a class="wa-float" href="#" id="waFloatBtn" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.13 8.13 0 0 1-1.25-4.35c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.52-3.68 8.2-8.15 8.2Z"/></svg>
+</a>
+
+<script>
+/* ============ CONFIG ============ */
+// Replace with the real number, digits only, country code, no + or spaces. Example Algeria: 213555123456
+const WHATSAPP_NUMBER = "213000000000";
+const WA_MESSAGE = encodeURIComponent("Bonjour Dr Semmari, je souhaite prendre rendez-vous.");
+const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${WA_MESSAGE}`;
+["waNavBtn","waHeroBtn","waCtaBtn","waSocialBtn","waFloatBtn"].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) el.href = waLink;
+});
+
+/* ============ MOBILE NAV ============ */
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', ()=> navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> navLinks.classList.remove('open')));
+
+/* ============ SCROLL REVEAL ============ */
+const revealEls = document.querySelectorAll('[data-reveal]');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+},{threshold:.15});
+revealEls.forEach(el=> io.observe(el));
+
+/* ============ GALLERY FILTER ============ */
+const filterBtns = document.querySelectorAll('#filters button');
+const caseCards = document.querySelectorAll('#caseGrid .case-card');
+filterBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    filterBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    caseCards.forEach(card=>{
+      card.style.display = (f==='all' || card.dataset.cat===f) ? '' : 'none';
+    });
+  });
+});
+
+/* ============ TRANSLATIONS ============ */
+const translations = {
+  fr: {
+    "nav.role":"Chirurgien-Dentiste","nav.about":"À propos","nav.services":"Soins","nav.gallery":"Réalisations",
+    "nav.location":"Localisation","nav.contact":"Contact","nav.book":"Rendez-vous",
+    "hero.eyebrow":"Cabinet Dentaire · Bordj El Bahri","hero.title1":"DES SOURIRES","hero.title2":"qui inspirent confiance",
+    "hero.lead":"Soins dentaires précis, esthétiques et humains — dans un cabinet pensé pour vous mettre à l'aise, du premier sourire au dernier détail.",
+    "hero.cta1":"Prendre rendez-vous","hero.cta2":"Voir les soins","hero.role":"Chirurgien-Dentiste","hero.tagline":"Your tooth fairy 🦷",
+    "hero.stat1n":"7j/7","hero.stat1l":"Ouvert","hero.stat2n":"9h–17h","hero.stat2l":"Horaires","hero.stat3n":"100%","hero.stat3l":"Soin & précision",
+    "hero.scroll":"Découvrir",
+    "about.eyebrow":"À propos","about.title":"VOTRE <span class=\"accent\">Dentiste</span> de confiance",
+    "about.p1":"Le Dr Semmari Ahlem exerce comme chirurgien-dentiste à Bordj El Bahri, avec une approche qui allie rigueur clinique et douceur — pour que chaque visite, même la plus redoutée, se passe sereinement.",
+    "about.p2":"Des soins conservateurs à l'esthétique dentaire, chaque traitement est pensé sur mesure, avec un souci constant du détail et du confort du patient.",
+    "about.quote":"Your tooth fairy 🦷","about.floatn":"Approche","about.floatl":"Douce & rassurante",
+    "services.eyebrow":"Nos soins","services.title":"DES SOINS <span class=\"accent\">complets</span>",
+    "services.lead":"Un cabinet équipé pour répondre à l'ensemble de vos besoins dentaires, de la prévention à l'esthétique.",
+    "services.s1t":"Blanchiment dentaire","services.s1p":"Blanchiment externe professionnel pour un sourire éclatant, en toute sécurité pour l'émail.",
+    "services.s2t":"Bridges & prothèses zircon","services.s2p":"Restaurations esthétiques et durables — bridges céramo-zircon pour retrouver un sourire naturel.",
+    "services.s3t":"Prothèses amovibles (PAPCM)","services.s3p":"Solutions sur mesure pour remplacer les dents manquantes et restaurer confort et fonction.",
+    "services.s4t":"Soins conservateurs","services.s4p":"Détartrage, traitement des caries et soins préventifs pour une santé bucco-dentaire durable.",
+    "services.s5t":"Esthétique dentaire","services.s5p":"Facettes et corrections esthétiques pour un sourire harmonieux et naturel.",
+    "services.s6t":"Urgences dentaires","services.s6p":"Prise en charge rapide des douleurs et urgences, avec créneaux disponibles chaque jour.",
+    "gallery.eyebrow":"Cas traités","gallery.title":"NOS <span class=\"accent\">Réalisations</span>",
+    "gallery.lead":"Un aperçu de résultats réels, avant / après — chaque sourire raconte une histoire différente.",
+    "gallery.fall":"Tout","gallery.fbridge":"Bridges","gallery.fblanch":"Blanchiment","gallery.fproth":"Prothèses",
+    "gallery.c1tag":"Bridge Zircon","gallery.c1t":"Bridge en Zircon","gallery.c1p":"Restauration complète d'une zone édentée, résultat naturel.",
+    "gallery.c2tag":"Blanchiment","gallery.c2t":"Blanchiment externe","gallery.c2p":"Éclaircissement visible dès la première séance.",
+    "gallery.c3tag":"PAPCM","gallery.c3t":"Prothèse supérieure","gallery.c3p":"Reconstruction complète, sourire et fonction restaurés.",
+    "loc.eyebrow":"Nous trouver","loc.title":"LE <span class=\"accent\">Cabinet</span>","loc.addr":"Adresse","loc.addrv":"Bordj El Bahri, Alger, Algérie",
+    "loc.hours":"Horaires","loc.days":"Tous les jours","loc.phone":"Téléphone / WhatsApp",
+    "cta.eyebrow":"Contact","cta.title":"PRENEZ <span class=\"accent\">Rendez-vous</span>",
+    "cta.lead":"Le moyen le plus rapide de nous joindre : un message WhatsApp. Réponse rapide, prise de rendez-vous simplifiée.",
+    "cta.wa":"Écrire sur WhatsApp","cta.ig":"Voir Instagram",
+    "footer.line":"Bordj El Bahri, Alger — Ouvert tous les jours de 9h à 17h","footer.credit1":"Créé par"
+  },
+  en: {
+    "nav.role":"Dental Surgeon","nav.about":"About","nav.services":"Care","nav.gallery":"Results",
+    "nav.location":"Location","nav.contact":"Contact","nav.book":"Book now",
+    "hero.eyebrow":"Dental Clinic · Bordj El Bahri","hero.title1":"SMILES", "hero.title2":"you can trust",
+    "hero.lead":"Precise, aesthetic and human dental care — in a clinic designed to put you at ease, from your first smile to the last detail.",
+    "hero.cta1":"Book an appointment","hero.cta2":"See our care","hero.role":"Dental Surgeon","hero.tagline":"Your tooth fairy 🦷",
+    "hero.stat1n":"7/7 days","hero.stat1l":"Open","hero.stat2n":"9am–5pm","hero.stat2l":"Hours","hero.stat3n":"100%","hero.stat3l":"Care & precision",
+    "hero.scroll":"Discover",
+    "about.eyebrow":"About","about.title":"YOUR TRUSTED <span class=\"accent\">Dentist</span>",
+    "about.p1":"Dr Semmari Ahlem practices as a dental surgeon in Bordj El Bahri, combining clinical rigor with gentleness — so every visit, even the most dreaded one, goes smoothly.",
+    "about.p2":"From conservative care to dental aesthetics, every treatment is tailored, with constant attention to detail and patient comfort.",
+    "about.quote":"Your tooth fairy 🦷","about.floatn":"Approach","about.floatl":"Gentle & reassuring",
+    "services.eyebrow":"Our care","services.title":"COMPLETE <span class=\"accent\">Care</span>",
+    "services.lead":"A clinic equipped to meet all your dental needs, from prevention to aesthetics.",
+    "services.s1t":"Teeth whitening","services.s1p":"Professional external whitening for a radiant smile, safe for your enamel.",
+    "services.s2t":"Zircon bridges & crowns","services.s2p":"Durable, aesthetic restorations — ceramic-zircon bridges for a natural smile.",
+    "services.s3t":"Removable dentures (PAPCM)","services.s3p":"Custom solutions to replace missing teeth and restore comfort and function.",
+    "services.s4t":"Conservative dentistry","services.s4p":"Scaling, cavity treatment and preventive care for lasting oral health.",
+    "services.s5t":"Cosmetic dentistry","services.s5p":"Veneers and aesthetic corrections for a natural, harmonious smile.",
+    "services.s6t":"Dental emergencies","services.s6p":"Fast care for pain and emergencies, with slots available every day.",
+    "gallery.eyebrow":"Treated cases","gallery.title":"OUR <span class=\"accent\">Results</span>",
+    "gallery.lead":"A glimpse of real results, before / after — every smile tells a different story.",
+    "gallery.fall":"All","gallery.fbridge":"Bridges","gallery.fblanch":"Whitening","gallery.fproth":"Dentures",
+    "gallery.c1tag":"Zircon Bridge","gallery.c1t":"Zircon Bridge","gallery.c1p":"Full restoration of a missing tooth area, natural result.",
+    "gallery.c2tag":"Whitening","gallery.c2t":"External whitening","gallery.c2p":"Visible brightening from the first session.",
+    "gallery.c3tag":"PAPCM","gallery.c3t":"Upper denture","gallery.c3p":"Full reconstruction, smile and function restored.",
+    "loc.eyebrow":"Find us","loc.title":"THE <span class=\"accent\">Clinic</span>","loc.addr":"Address","loc.addrv":"Bordj El Bahri, Algiers, Algeria",
+    "loc.hours":"Hours","loc.days":"Every day","loc.phone":"Phone / WhatsApp",
+    "cta.eyebrow":"Contact","cta.title":"BOOK YOUR <span class=\"accent\">Appointment</span>",
+    "cta.lead":"The fastest way to reach us: a WhatsApp message. Quick reply, easy booking.",
+    "cta.wa":"Message on WhatsApp","cta.ig":"See Instagram",
+    "footer.line":"Bordj El Bahri, Algiers — Open every day, 9am to 5pm","footer.credit1":"Created by"
+  },
+  ar: {
+    "nav.role":"جراحة أسنان","nav.about":"من نحن","nav.services":"الخدمات","nav.gallery":"إنجازاتنا",
+    "nav.location":"الموقع","nav.contact":"تواصل معنا","nav.book":"احجز موعد",
+    "hero.eyebrow":"عيادة أسنان · برج البحري","hero.title1":"ابتسامة", "hero.title2":"تستحق الثقة",
+    "hero.lead":"عناية دقيقة وجمالية وإنسانية بأسنانك — في عيادة مُصمَّمة لراحتك، من أول ابتسامة إلى أدق التفاصيل.",
+    "hero.cta1":"احجز موعدك","hero.cta2":"اكتشف خدماتنا","hero.role":"جراحة أسنان","hero.tagline":"جنية أسنانك 🦷",
+    "hero.stat1n":"7/7 أيام","hero.stat1l":"مفتوح","hero.stat2n":"9ص–5م","hero.stat2l":"التوقيت","hero.stat3n":"100%","hero.stat3l":"عناية ودقة",
+    "hero.scroll":"اكتشف المزيد",
+    "about.eyebrow":"من نحن","about.title":"طبيبة <span class=\"accent\">أسنانك</span> الموثوقة",
+    "about.p1":"تمارس الدكتورة سماري أحلام مهنة جراحة الأسنان في برج البحري، بأسلوب يجمع بين الدقة العلمية واللطف — لتكون كل زيارة، حتى الأكثر خوفًا منها، سلسة ومريحة.",
+    "about.p2":"من العناية الوقائية إلى تجميل الأسنان، كل علاج يُصمَّم خصيصًا لك، مع اهتمام دائم بالتفاصيل وراحة المريض.",
+    "about.quote":"جنية أسنانك 🦷","about.floatn":"أسلوبنا","about.floatl":"لطيف ومطمئن",
+    "services.eyebrow":"خدماتنا","services.title":"عناية <span class=\"accent\">شاملة</span>",
+    "services.lead":"عيادة مجهزة لتلبية جميع احتياجاتك في مجال طب الأسنان، من الوقاية إلى التجميل.",
+    "services.s1t":"تبييض الأسنان","services.s1p":"تبييض خارجي احترافي لابتسامة مشرقة، بأمان تام على مينا الأسنان.",
+    "services.s2t":"جسور وتيجان الزيركون","services.s2p":"ترميمات جمالية ومتينة — جسور خزفية-زيركون لابتسامة طبيعية.",
+    "services.s3t":"أطقم متحركة (PAPCM)","services.s3p":"حلول مخصصة لتعويض الأسنان المفقودة واستعادة الراحة والوظيفة.",
+    "services.s4t":"العناية الوقائية","services.s4p":"إزالة الجير، علاج التسوس وعناية وقائية لصحة فموية دائمة.",
+    "services.s5t":"تجميل الأسنان","services.s5p":"فينير وتصحيحات جمالية لابتسامة متناسقة وطبيعية.",
+    "services.s6t":"حالات الطوارئ","services.s6p":"تكفل سريع بالآلام والحالات الطارئة، مع مواعيد متاحة يوميًا.",
+    "gallery.eyebrow":"حالات تم علاجها","gallery.title":"من <span class=\"accent\">إنجازاتنا</span>",
+    "gallery.lead":"لمحة عن نتائج حقيقية، قبل / بعد — كل ابتسامة تحكي قصة مختلفة.",
+    "gallery.fall":"الكل","gallery.fbridge":"جسور","gallery.fblanch":"تبييض","gallery.fproth":"أطقم",
+    "gallery.c1tag":"جسر زيركون","gallery.c1t":"جسر من الزيركون","gallery.c1p":"ترميم كامل لمنطقة تفتقر إلى أسنان، بنتيجة طبيعية.",
+    "gallery.c2tag":"تبييض","gallery.c2t":"تبييض خارجي","gallery.c2p":"إشراق واضح من الجلسة الأولى.",
+    "gallery.c3tag":"PAPCM","gallery.c3t":"طقم علوي","gallery.c3p":"إعادة بناء كاملة، مع استعادة الابتسامة والوظيفة.",
+    "loc.eyebrow":"موقعنا","loc.title":"عن <span class=\"accent\">العيادة</span>","loc.addr":"العنوان","loc.addrv":"برج البحري، الجزائر العاصمة",
+    "loc.hours":"أوقات العمل","loc.days":"كل أيام الأسبوع","loc.phone":"الهاتف / واتساب",
+    "cta.eyebrow":"تواصل معنا","cta.title":"احجزي <span class=\"accent\">موعدك</span>",
+    "cta.lead":"أسرع طريقة للتواصل معنا: رسالة عبر واتساب. رد سريع وحجز ميسّر.",
+    "cta.wa":"راسلنا على واتساب","cta.ig":"شاهد إنستغرام",
+    "footer.line":"برج البحري، الجزائر العاصمة — مفتوح يوميًا من 9 صباحًا إلى 5 مساءً","footer.credit1":"تصميم"
+  }
+};
+
+const langBtns = document.querySelectorAll('#langSwitch button');
+function applyLang(lang){
+  const dict = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(dict[key]) el.textContent = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-html');
+    if(dict[key]) el.innerHTML = dict[key];
+  });
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  langBtns.forEach(b=> b.classList.toggle('active', b.dataset.lang===lang));
+}
+langBtns.forEach(btn=> btn.addEventListener('click', ()=> applyLang(btn.dataset.lang)));
+</script>
+
+</body>
+</html>
