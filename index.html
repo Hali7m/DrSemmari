@@ -89,6 +89,7 @@
     background:rgba(246,250,250,0.86);
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
+    box-shadow:0 12px 34px -26px rgba(14,42,61,.5);
     transition:background .3s;
   }
   .nav{
@@ -111,12 +112,46 @@
   }
   .nav-links a:hover::after{width:100%;}
 
-  .lang-switch{display:flex; gap:4px; background:var(--card); border:1px solid var(--line); border-radius:100px; padding:3px;}
-  .lang-switch button{
-    border:none; background:transparent; padding:6px 12px; border-radius:100px;
-    font-size:.76rem; font-weight:700; cursor:pointer; color:var(--ink-soft); font-family:var(--font-body);
+  .lang-dropdown{position:relative;}
+  .lang-toggle{
+    display:flex; align-items:center; gap:7px;
+    background:var(--card); border:1px solid var(--line); border-radius:100px;
+    padding:8px 13px; cursor:pointer; font-family:var(--font-body); font-weight:700;
+    font-size:.76rem; color:var(--ink); letter-spacing:.02em;
+    transition:border-color .2s, box-shadow .2s;
   }
-  .lang-switch button.active{background:var(--navy); color:#fff;}
+  .lang-toggle:hover{border-color:var(--teal-light);}
+  .lang-toggle svg{flex-shrink:0;}
+  .lang-toggle svg:first-child{width:18px; height:18px; color:var(--teal);}
+  .lang-toggle .lang-code{text-transform:uppercase;}
+  .lang-caret{width:13px; height:13px; color:var(--ink-soft); transition:transform .2s;}
+  .lang-dropdown.open .lang-toggle{border-color:var(--teal); box-shadow:0 0 0 3px rgba(20,107,118,.12);}
+  .lang-dropdown.open .lang-caret{transform:rotate(180deg);}
+
+  .lang-menu{
+    position:absolute; top:calc(100% + 10px); inset-inline-end:0;
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    box-shadow:var(--shadow); padding:6px; min-width:152px;
+    opacity:0; visibility:hidden; transform:translateY(-8px);
+    transition:opacity .2s ease, transform .2s ease, visibility .2s;
+    z-index:1200;
+  }
+  .lang-dropdown.open .lang-menu{opacity:1; visibility:visible; transform:translateY(0);}
+  .lang-menu button{
+    display:flex; align-items:center; justify-content:space-between; width:100%;
+    padding:10px 12px; border-radius:9px; background:none; border:none; cursor:pointer;
+    font-family:var(--font-body); font-size:.86rem; color:var(--ink-soft); text-align:start;
+    transition:background .15s, color .15s;
+  }
+  html[dir="rtl"] .lang-menu button{font-family:'Tajawal',sans-serif;}
+  .lang-menu button:hover{background:rgba(20,107,118,.08); color:var(--ink);}
+  .lang-menu button.active{color:var(--teal); font-weight:700;}
+  .lang-menu button.active::after{content:'✓'; font-size:.78rem;}
+
+  @media(max-width:400px){
+    .lang-toggle{padding:7px 10px; gap:5px;}
+    .lang-toggle .lang-code{display:none;}
+  }
 
   .nav-cta{
     display:inline-flex; align-items:center; gap:8px;
@@ -133,21 +168,15 @@
     .nav-links{
       position:fixed; top:74px; left:0; right:0; background:var(--card);
       flex-direction:column; align-items:flex-start; gap:0; padding:8px 24px 20px;
-      border-bottom:1px solid var(--line); transform:translateY(-130%); transition:transform .3s;
+      border-bottom:1px solid var(--line);
+      opacity:0; visibility:hidden; pointer-events:none; transform:translateY(-14px);
+      transition:opacity .25s ease, transform .25s ease, visibility .25s;
       max-height:calc(100vh - 74px); overflow-y:auto;
     }
-    .nav-links.open{transform:translateY(0);}
+    .nav-links.open{opacity:1; visibility:visible; pointer-events:auto; transform:translateY(0);}
     .nav-links a{width:100%; padding:12px 0; border-bottom:1px solid var(--line);}
     .burger{display:flex;}
     .nav-cta{display:none;}
-    /* lang switch moves off the top bar and into the mobile menu */
-    .nav > div > .lang-switch{display:none;}
-    .lang-switch-mobile{
-      display:flex; margin-top:14px; align-self:flex-start;
-    }
-  }
-  @media(min-width:901px){
-    .lang-switch-mobile{display:none;}
   }
   .brand{min-width:0;}
   .brand-text{min-width:0;}
@@ -469,18 +498,20 @@
       <li><a href="#realisations" data-i18n="nav.gallery">Réalisations</a></li>
       <li><a href="#localisation" data-i18n="nav.location">Localisation</a></li>
       <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
-      <div class="lang-switch lang-switch-mobile" id="langSwitchMobile">
-        <button data-lang="fr" class="active">FR</button>
-        <button data-lang="en">EN</button>
-        <button data-lang="ar">ع</button>
-      </div>
     </ul>
 
-    <div style="display:flex; align-items:center; gap:14px;">
-      <div class="lang-switch" id="langSwitch">
-        <button data-lang="fr" class="active">FR</button>
-        <button data-lang="en">EN</button>
-        <button data-lang="ar">ع</button>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="lang-dropdown" id="langDropdown">
+        <button class="lang-toggle" id="langToggle" aria-haspopup="true" aria-expanded="false" aria-label="Changer de langue / Change language">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.6 3.7 5.7 3.7 9s-1.3 6.4-3.7 9c-2.4-2.6-3.7-5.7-3.7-9S9.6 5.6 12 3Z"/></svg>
+          <span class="lang-code" id="langCode">FR</span>
+          <svg class="lang-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu">
+          <button data-lang="fr" class="active" role="menuitem">Français</button>
+          <button data-lang="en" role="menuitem">English</button>
+          <button data-lang="ar" role="menuitem">العربية</button>
+        </div>
       </div>
       <a class="nav-cta" href="#" id="waNavBtn" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.13 8.13 0 0 1-1.25-4.35c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.52-3.68 8.2-8.15 8.2Zm4.48-6.14c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.53.06-.24-.12-1.03-.38-1.96-1.22-.72-.65-1.21-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
@@ -506,7 +537,7 @@
       <p class="lead" data-i18n="hero.lead">Soins dentaires précis, esthétiques et humains — dans un cabinet pensé pour vous mettre à l'aise, du premier sourire au dernier détail.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#" id="waHeroBtn" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.13 8.13 0 0 1-1.25-4.35c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.52-3.68 8.2-8.15 8.2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.13 8.13 0 0 1-1.25-4.35c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.52-3.68 8.2-8.15 8.2Zm4.48-6.14c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.53.06-.24-.12-1.03-.38-1.96-1.22-.72-.65-1.21-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
           <span data-i18n="hero.cta1">Prendre rendez-vous</span>
         </a>
         <a class="btn btn-ghost" href="#soins" data-i18n="hero.cta2">Voir les soins</a>
@@ -703,7 +734,7 @@
     <p data-i18n="cta.lead">Le moyen le plus rapide de nous joindre : un message WhatsApp. Réponse rapide, prise de rendez-vous simplifiée.</p>
     <div class="cta-buttons">
       <a class="btn btn-primary" href="#" id="waCtaBtn" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.13 8.13 0 0 1-1.25-4.35c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.52-3.68 8.2-8.15 8.2Zm4.48-6.14c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.53.06-.24-.12-1.03-.38-1.96-1.22-.72-.65-1.21-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
         <span data-i18n="cta.wa">Écrire sur WhatsApp</span>
       </a>
       <a class="btn btn-ghost" href="https://instagram.com/dr.semmari_a" target="_blank" rel="noopener" data-i18n="cta.ig">Voir Instagram</a>
@@ -714,7 +745,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
       </a>
       <a href="#" id="waSocialBtn" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 14l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.13 8.13 0 0 1-1.25-4.35c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.52-3.68 8.2-8.15 8.2Zm4.48-6.14c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.53.06-.24-.12-1.03-.38-1.96-1.22-.72-.65-1.21-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
       </a>
     </div>
   </div>
@@ -733,7 +764,7 @@
 </footer>
 
 <a class="wa-float" href="#" id="waFloatBtn" target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.13 8.13 0 0 1-1.25-4.35c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.52-3.68 8.2-8.15 8.2Z"/></svg>
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.13 8.13 0 0 1-1.25-4.35c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.52-3.68 8.2-8.15 8.2Zm4.48-6.14c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.53.06-.24-.12-1.03-.38-1.96-1.22-.72-.65-1.21-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.45-.59 1.65-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
 </a>
 
 <script>
@@ -752,6 +783,27 @@ const burger = document.getElementById('burger');
 const navLinks = document.getElementById('navLinks');
 burger.addEventListener('click', ()=> navLinks.classList.toggle('open'));
 navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> navLinks.classList.remove('open')));
+
+/* ============ LANGUAGE DROPDOWN ============ */
+const langDropdown = document.getElementById('langDropdown');
+const langToggle = document.getElementById('langToggle');
+langToggle.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  const isOpen = langDropdown.classList.toggle('open');
+  langToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+});
+document.addEventListener('click', (e)=>{
+  if(!langDropdown.contains(e.target)){
+    langDropdown.classList.remove('open');
+    langToggle.setAttribute('aria-expanded','false');
+  }
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    langDropdown.classList.remove('open');
+    langToggle.setAttribute('aria-expanded','false');
+  }
+});
 
 /* ============ SCROLL REVEAL ============ */
 const revealEls = document.querySelectorAll('[data-reveal]');
@@ -877,7 +929,8 @@ const translations = {
   }
 };
 
-const langBtns = document.querySelectorAll('.lang-switch button');
+const langBtns = document.querySelectorAll('.lang-menu button');
+const langCode = document.getElementById('langCode');
 function applyLang(lang){
   const dict = translations[lang];
   document.querySelectorAll('[data-i18n]').forEach(el=>{
@@ -891,6 +944,9 @@ function applyLang(lang){
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
   langBtns.forEach(b=> b.classList.toggle('active', b.dataset.lang===lang));
+  langCode.textContent = lang.toUpperCase();
+  langDropdown.classList.remove('open');
+  langToggle.setAttribute('aria-expanded','false');
 }
 langBtns.forEach(btn=> btn.addEventListener('click', ()=> applyLang(btn.dataset.lang)));
 </script>
