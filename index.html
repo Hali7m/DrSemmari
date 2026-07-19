@@ -134,11 +134,31 @@
       position:fixed; top:74px; left:0; right:0; background:var(--card);
       flex-direction:column; align-items:flex-start; gap:0; padding:8px 24px 20px;
       border-bottom:1px solid var(--line); transform:translateY(-130%); transition:transform .3s;
+      max-height:calc(100vh - 74px); overflow-y:auto;
     }
     .nav-links.open{transform:translateY(0);}
     .nav-links a{width:100%; padding:12px 0; border-bottom:1px solid var(--line);}
     .burger{display:flex;}
     .nav-cta{display:none;}
+    /* lang switch moves off the top bar and into the mobile menu */
+    .nav > div > .lang-switch{display:none;}
+    .lang-switch-mobile{
+      display:flex; margin-top:14px; align-self:flex-start;
+    }
+  }
+  @media(min-width:901px){
+    .lang-switch-mobile{display:none;}
+  }
+  .brand{min-width:0;}
+  .brand-text{min-width:0;}
+  .brand-text b, .brand-text span{
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  @media(max-width:400px){
+    .brand img{width:36px; height:36px;}
+    .brand-text b{font-size:.9rem;}
+    .brand-text span{font-size:.6rem; letter-spacing:.1em;}
+    .nav{padding:12px 16px;}
   }
 
   /* ---------- Hero ---------- */
@@ -403,6 +423,31 @@
   }
 
   :focus-visible{outline:2px solid var(--pink); outline-offset:3px;}
+
+  /* ---------- Texture & decorative artwork ---------- */
+  .about, .services, .location, .gallery, .cta-section{position:relative; overflow:hidden;}
+
+  .texture-dots{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:radial-gradient(circle, rgba(20,107,118,.16) 1px, transparent 1.3px);
+    background-size:26px 26px;
+    -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+    mask-image:linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+  }
+  .texture-dots.on-dark{
+    background-image:radial-gradient(circle, rgba(255,255,255,.14) 1px, transparent 1.3px);
+  }
+
+  .bg-tooth{position:absolute; z-index:0; pointer-events:none; opacity:.05;}
+  .bg-tooth svg{width:100%; height:100%; display:block;}
+  .bg-tooth.on-dark{opacity:.06;}
+
+  .bg-swirl{position:absolute; z-index:0; pointer-events:none; opacity:.55;}
+  .bg-swirl svg{width:100%; height:100%; display:block;}
+
+  section > .wrap, section > .inner{position:relative; z-index:1;}
+  .hero-grid{position:relative; z-index:1;}
+
 </style>
 </head>
 <body>
@@ -424,6 +469,11 @@
       <li><a href="#realisations" data-i18n="nav.gallery">Réalisations</a></li>
       <li><a href="#localisation" data-i18n="nav.location">Localisation</a></li>
       <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      <div class="lang-switch lang-switch-mobile" id="langSwitchMobile">
+        <button data-lang="fr" class="active">FR</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="ar">ع</button>
+      </div>
     </ul>
 
     <div style="display:flex; align-items:center; gap:14px;">
@@ -481,6 +531,13 @@
 
 <!-- ================= ABOUT ================= -->
 <section class="about" id="apropos">
+  <div class="texture-dots" aria-hidden="true"></div>
+  <div class="bg-tooth" style="color:var(--teal); width:260px; height:340px; top:-60px; inset-inline-end:-40px; transform:rotate(14deg);" aria-hidden="true">
+    <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3"><path d="M100,14 C64,14 42,42 42,78 C42,108 56,120 61,138 C66,160 57,188 51,216 C49,231 56,244 66,242 C76,240 79,214 83,196 C86,182 91,173 100,173 C109,173 114,182 117,196 C121,214 124,240 134,242 C144,244 151,231 149,216 C143,188 134,160 139,138 C144,120 158,108 158,78 C158,42 136,14 100,14 Z"/></svg>
+  </div>
+  <div class="bg-swirl" style="color:var(--pink); width:110px; height:110px; top:24px; inset-inline-start:6%;" aria-hidden="true">
+    <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18,140 C34,118 14,96 34,78 C54,60 42,38 62,24" stroke-dasharray="1 9"/><path d="M62 14 L65.4 22.6 L74 24 L67.6 30.4 L69.2 39 L62 34.6 L54.8 39 L56.4 30.4 L50 24 L58.6 22.6 Z" fill="currentColor" stroke="none"/><path d="M100 50 L102.6 56.6 L109 58 L104 62.4 L105.2 69 L100 65.4 L94.8 69 L96 62.4 L91 58 L97.4 56.6 Z" fill="currentColor" stroke="none" opacity=".8"/></svg>
+  </div>
   <div class="wrap about-grid">
     <div class="about-photo" data-reveal>
       <div class="frame"><img src="assets/logo.jpg" alt="Dr Semmari Ahlem"></div>
@@ -505,6 +562,10 @@
 
 <!-- ================= SERVICES ================= -->
 <section class="services" id="soins">
+  <div class="texture-dots" aria-hidden="true"></div>
+  <div class="bg-tooth" style="color:var(--navy); width:220px; height:290px; bottom:-70px; inset-inline-start:-30px; transform:rotate(-16deg);" aria-hidden="true">
+    <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3"><path d="M100,14 C64,14 42,42 42,78 C42,108 56,120 61,138 C66,160 57,188 51,216 C49,231 56,244 66,242 C76,240 79,214 83,196 C86,182 91,173 100,173 C109,173 114,182 117,196 C121,214 124,240 134,242 C144,244 151,231 149,216 C143,188 134,160 139,138 C144,120 158,108 158,78 C158,42 136,14 100,14 Z"/></svg>
+  </div>
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div class="eyebrow" data-i18n="services.eyebrow">Nos soins</div>
@@ -549,6 +610,13 @@
 
 <!-- ================= GALLERY ================= -->
 <section class="gallery" id="realisations">
+  <div class="texture-dots on-dark" aria-hidden="true"></div>
+  <div class="bg-tooth on-dark" style="color:#fff; width:300px; height:390px; top:-40px; inset-inline-end:2%; transform:rotate(10deg);" aria-hidden="true">
+    <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3"><path d="M100,14 C64,14 42,42 42,78 C42,108 56,120 61,138 C66,160 57,188 51,216 C49,231 56,244 66,242 C76,240 79,214 83,196 C86,182 91,173 100,173 C109,173 114,182 117,196 C121,214 124,240 134,242 C144,244 151,231 149,216 C143,188 134,160 139,138 C144,120 158,108 158,78 C158,42 136,14 100,14 Z"/></svg>
+  </div>
+  <div class="bg-swirl" style="color:var(--gold); width:100px; height:100px; bottom:8%; inset-inline-start:4%;" aria-hidden="true">
+    <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18,140 C34,118 14,96 34,78 C54,60 42,38 62,24" stroke-dasharray="1 9"/><path d="M62 14 L65.4 22.6 L74 24 L67.6 30.4 L69.2 39 L62 34.6 L54.8 39 L56.4 30.4 L50 24 L58.6 22.6 Z" fill="currentColor" stroke="none"/></svg>
+  </div>
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div class="eyebrow" data-i18n="gallery.eyebrow">Cas traités</div>
@@ -582,6 +650,10 @@
 
 <!-- ================= LOCATION ================= -->
 <section class="location" id="localisation">
+  <div class="texture-dots" aria-hidden="true"></div>
+  <div class="bg-tooth" style="color:var(--pink-deep); width:180px; height:230px; bottom:-30px; inset-inline-end:4%; transform:rotate(-10deg);" aria-hidden="true">
+    <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3"><path d="M100,14 C64,14 42,42 42,78 C42,108 56,120 61,138 C66,160 57,188 51,216 C49,231 56,244 66,242 C76,240 79,214 83,196 C86,182 91,173 100,173 C109,173 114,182 117,196 C121,214 124,240 134,242 C144,244 151,231 149,216 C143,188 134,160 139,138 C144,120 158,108 158,78 C158,42 136,14 100,14 Z"/></svg>
+  </div>
   <div class="wrap loc-grid">
     <div class="loc-card" data-reveal>
       <div class="eyebrow" data-i18n="loc.eyebrow">Nous trouver</div>
@@ -622,6 +694,9 @@
 
 <!-- ================= CTA / CONTACT ================= -->
 <section class="cta-section" id="contact">
+  <div class="bg-swirl" style="color:var(--pink); width:90px; height:90px; top:14%; inset-inline-end:10%;" aria-hidden="true">
+    <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18,140 C34,118 14,96 34,78 C54,60 42,38 62,24" stroke-dasharray="1 9"/><path d="M62 14 L65.4 22.6 L74 24 L67.6 30.4 L69.2 39 L62 34.6 L54.8 39 L56.4 30.4 L50 24 L58.6 22.6 Z" fill="currentColor" stroke="none"/></svg>
+  </div>
   <div class="wrap inner">
     <div class="eyebrow" style="justify-content:center; color:var(--pink);" data-i18n="cta.eyebrow">Contact</div>
     <h2 class="headline" data-i18n-html="cta.title">PRENEZ <span class="accent">Rendez-vous</span></h2>
@@ -802,7 +877,7 @@ const translations = {
   }
 };
 
-const langBtns = document.querySelectorAll('#langSwitch button');
+const langBtns = document.querySelectorAll('.lang-switch button');
 function applyLang(lang){
   const dict = translations[lang];
   document.querySelectorAll('[data-i18n]').forEach(el=>{
